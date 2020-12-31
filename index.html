@@ -141,6 +141,10 @@ Error message and password prompt
 
 <p>This <a class="tc-tiddlylink-external" href="https://tiddlywiki.com" rel="noopener noreferrer" target="_blank">TiddlyWiki</a> contains the following tiddlers:</p><p><ul>
 
+<li>$:/_Abbreviation</li>
+
+<li>$:/_Auctor</li>
+
 <li>$:/_dictionary/abbreviation</li>
 
 <li>$:/_dictionary/auctor</li>
@@ -229,6 +233,152 @@ Error message and password prompt
 <!--~~ Ordinary tiddlers ~~-->
 
 <div id="storeArea" style="display:none;">
+<div created="20201231005507165" modified="20201231011329178" tags="" title="$:/_Abbreviation">
+<pre>\define thisListMacro()
+&lt;b&gt;&lt;$view field=title/&gt;&lt;/b&gt;: {{$:/_dictionary/abbreviation##$(thisIndex)$}}&lt;br&gt;
+\end
+\define thisEditListMacro()
+&lt;b&gt;&lt;$view field=title/&gt;&lt;/b&gt;: {{$:/_dictionary/abbreviation##$(thisIndex)$}} &lt;$button&gt;Remove&lt;$action-deletefield $tiddler='$:/_dictionary/abbreviation' $field=$(thisIndex)$ $value=''/&gt;&lt;/$button&gt;&lt;br&gt;
+\end
+
+\define thisRegEx()
+$(thisSearch)$(?i)
+\end
+
+\define thisSearchMacro()
+&lt;ol&gt;
+&lt;$list filter=&quot;[[$:/_dictionary/abbreviation]indexes[]regexp:title[(?i)$(thisSearch)$]]&quot;&gt;
+&lt;li&gt;&lt;span style=&quot;color:darkred;&quot;&gt;&lt;&lt;currentTiddler&gt;&gt;&lt;/span&gt;: &lt;$transclude tiddler=&quot;$:/_dictionary/abbreviation&quot; index=&lt;&lt;currentTiddler&gt;&gt;/&gt;&lt;/li&gt;
+&lt;/$list&gt;
+&lt;/ol&gt;
+\end
+
+\define thisEditMacro()
+&lt;ol&gt;
+&lt;$list filter=&quot;[[$:/_dictionary/abbreviation]indexes[]regexp:title[(?i)$(thisSearch)$]]&quot;&gt;
+&lt;$set name=thisItem value=&lt;&lt;currentTiddler&gt;&gt;&gt;
+&lt;li&gt;&lt;&lt;thisDeleteButton&gt;&gt; &lt;&lt;currentTiddler&gt;&gt; - &lt;$transclude tiddler=&quot;$:/_dictionary/abbreviation&quot; index=&lt;&lt;currentTiddler&gt;&gt;/&gt;&lt;/li&gt;
+&lt;/$set&gt;
+&lt;/$list&gt;
+&lt;/ol&gt;
+\end
+
+\define thisDeleteButton()
+&lt;$button set='$:/_dictionary/abbreviation##$(thisItem)$'&gt;{{$:/core/images/delete-button}}&lt;/$button&gt;
+\end
+
+\define addTerm()
+&lt;$action-setfield $tiddler='$:/_dictionary/abbreviation' $index={{$:/temp/abbreviation!!name}} $value={{$:/temp/abbreviation!!meaning}}/&gt;
+&lt;$action-setfield $tiddler='$:/temp/abbreviation' name='' meaning=''/&gt;
+\end
+
+!! Förkortningar
+Släktnamn: &lt;$edit-text class='tc-edit-texteditor' tiddler='$:/temp/abbreviation' field='name'/&gt;&lt;br&gt;
+Förkortning: &lt;$edit-text class='tc-edit-texteditor' tiddler='$:/temp/abbreviation' field='meaning'/&gt;&lt;br&gt;
+
+&lt;$reveal type='match' state='$:/temp/abbreviation!!name' text=''&gt;
+&lt;$button&gt;Lägg till term&lt;/$button&gt;&lt;!-- This is a fake button, when term edit-text is empty --&gt;
+&lt;/$reveal&gt;
+&lt;$reveal type='nomatch' state='$:/temp/abbreviation!!name' text=''&gt;
+&lt;$button actions=&lt;&lt;addTerm&gt;&gt; &gt;Lägg till term &lt;/$button&gt;
+&lt;/$reveal&gt;
+&lt;$reveal type='nomatch' state='$:/temp/abbreviation/editreveal' text='edit'&gt;
+&lt;$button set='$:/temp/abbreviation/editreveal' setTo='edit'&gt;Ändra lexicon&lt;/$button&gt;
+&lt;/$reveal&gt;
+&lt;$reveal type='match' state='$:/temp/abbreviation/editreveal' text='edit'&gt;
+&lt;$button set='$:/temp/abbreviation/editreveal' setTo='noedit'&gt;Klar&lt;/$button&gt;
+&lt;/$reveal&gt;
+
+!! Sök
+Sök: &lt;$edit-text class='tc-edit-texteditor' tiddler='$:/temp/abbreviation' placeholder=&quot;Skriv in sökterm&quot; field='search'/&gt;&lt;br&gt;
+&lt;$reveal type='nomatch' state='$:/temp/abbreviation/editreveal' text='edit'&gt;
+
+&lt;/$reveal&gt;
+&lt;$reveal type='match' state='$:/temp/abbreviation/editreveal' text='edit'&gt;
+Klicka på soptunnan för att radera en term
+&lt;/$reveal&gt;
+&lt;$set name='thisSearch' value={{$:/temp/abbreviation!!search}}&gt;
+&lt;$reveal type='nomatch' state='$:/temp/abbreviation/editreveal' text='edit'&gt;
+&lt;&lt;thisSearchMacro&gt;&gt;
+&lt;/$reveal&gt;
+&lt;$reveal type='match' state='$:/temp/abbreviation/editreveal' text='edit'&gt;
+&lt;&lt;thisEditMacro&gt;&gt;
+&lt;/$reveal&gt;
+&lt;/$set&gt;</pre>
+</div>
+<div created="20201231011424312" modified="20201231011618076" tags="" title="$:/_Auctor">
+<pre>\define thisListMacro()
+&lt;b&gt;&lt;$view field=title/&gt;&lt;/b&gt;: {{$:/_dictionary/auctor##$(thisIndex)$}}&lt;br&gt;
+\end
+\define thisEditListMacro()
+&lt;b&gt;&lt;$view field=title/&gt;&lt;/b&gt;: {{$:/_dictionary/auctor##$(thisIndex)$}} &lt;$button&gt;Remove&lt;$action-deletefield $tiddler='$:/_dictionary/auctor' $field=$(thisIndex)$ $value=''/&gt;&lt;/$button&gt;&lt;br&gt;
+\end
+
+\define thisRegEx()
+$(thisSearch)$(?i)
+\end
+
+\define thisSearchMacro()
+&lt;ol&gt;
+&lt;$list filter=&quot;[[$:/_dictionary/auctor]indexes[]regexp:title[(?i)$(thisSearch)$]]&quot;&gt;
+&lt;li&gt;&lt;span style=&quot;color:darkred;&quot;&gt;&lt;&lt;currentTiddler&gt;&gt;&lt;/span&gt;: &lt;$transclude tiddler=&quot;$:/_dictionary/auctor&quot; index=&lt;&lt;currentTiddler&gt;&gt;/&gt;&lt;/li&gt;
+&lt;/$list&gt;
+&lt;/ol&gt;
+\end
+
+\define thisEditMacro()
+&lt;ol&gt;
+&lt;$list filter=&quot;[[$:/_dictionary/auctor]indexes[]regexp:title[(?i)$(thisSearch)$]]&quot;&gt;
+&lt;$set name=thisItem value=&lt;&lt;currentTiddler&gt;&gt;&gt;
+&lt;li&gt;&lt;&lt;thisDeleteButton&gt;&gt; &lt;&lt;currentTiddler&gt;&gt; - &lt;$transclude tiddler=&quot;$:/_dictionary/auctor&quot; index=&lt;&lt;currentTiddler&gt;&gt;/&gt;&lt;/li&gt;
+&lt;/$set&gt;
+&lt;/$list&gt;
+&lt;/ol&gt;
+\end
+
+\define thisDeleteButton()
+&lt;$button set='$:/_dictionary/auctor##$(thisItem)$'&gt;{{$:/core/images/delete-button}}&lt;/$button&gt;
+\end
+
+\define addTerm()
+&lt;$action-setfield $tiddler='$:/_dictionary/auctor' $index={{$:/temp/auctor!!name}} $value={{$:/temp/auctor!!meaning}}/&gt;
+&lt;$action-setfield $tiddler='$:/temp/auctor' name='' meaning=''/&gt;
+\end
+
+!! Förkortningar
+Namn: &lt;$edit-text class='tc-edit-texteditor' tiddler='$:/temp/auctor' field='name'/&gt;&lt;br&gt;
+Beskrivning: &lt;$edit-text class='tc-edit-texteditor' tiddler='$:/temp/auctor' field='meaning'/&gt;&lt;br&gt;
+
+&lt;$reveal type='match' state='$:/temp/auctor!!name' text=''&gt;
+&lt;$button&gt;Lägg till term&lt;/$button&gt;&lt;!-- This is a fake button, when term edit-text is empty --&gt;
+&lt;/$reveal&gt;
+&lt;$reveal type='nomatch' state='$:/temp/auctor!!name' text=''&gt;
+&lt;$button actions=&lt;&lt;addTerm&gt;&gt; &gt;Lägg till term &lt;/$button&gt;
+&lt;/$reveal&gt;
+&lt;$reveal type='nomatch' state='$:/temp/auctor/editreveal' text='edit'&gt;
+&lt;$button set='$:/temp/auctor/editreveal' setTo='edit'&gt;Ändra lexicon&lt;/$button&gt;
+&lt;/$reveal&gt;
+&lt;$reveal type='match' state='$:/temp/auctor/editreveal' text='edit'&gt;
+&lt;$button set='$:/temp/auctor/editreveal' setTo='noedit'&gt;Klar&lt;/$button&gt;
+&lt;/$reveal&gt;
+
+!! Sök
+Sök: &lt;$edit-text class='tc-edit-texteditor' tiddler='$:/temp/auctor' placeholder=&quot;Skriv in sökterm&quot; field='search'/&gt;&lt;br&gt;
+&lt;$reveal type='nomatch' state='$:/temp/auctor/editreveal' text='edit'&gt;
+
+&lt;/$reveal&gt;
+&lt;$reveal type='match' state='$:/temp/auctor/editreveal' text='edit'&gt;
+Klicka på soptunnan för att radera en term
+&lt;/$reveal&gt;
+&lt;$set name='thisSearch' value={{$:/temp/auctor!!search}}&gt;
+&lt;$reveal type='nomatch' state='$:/temp/auctor/editreveal' text='edit'&gt;
+&lt;&lt;thisSearchMacro&gt;&gt;
+&lt;/$reveal&gt;
+&lt;$reveal type='match' state='$:/temp/auctor/editreveal' text='edit'&gt;
+&lt;&lt;thisEditMacro&gt;&gt;
+&lt;/$reveal&gt;
+&lt;/$set&gt;</pre>
+</div>
 <div created="20161116200044849" creator="Magnus Evald" modified="20181229013433890" modifier="Magnus" tags="$:/tags/Dictionary" title="$:/_dictionary/abbreviation" type="application/x-tiddler-dictionary">
 <pre>Aa:Aa
 Acampe:Acp.
@@ -2068,7 +2218,7 @@ Orchids grow slowly. They languish. They will produce a flower and a seedpod, ma
 <pre>&lt;&lt;&lt;.tc-big-quote
 Orkidé kommer från det grekiska ordet ''orchis'', vilket betyder &quot;testikel&quot; och kommer från formen på de köttiga dubbla rötterna som de först beskrivna arterna hade.</pre>
 </div>
-<div created="20201230223903183" modified="20201231004622378" tags="" title="$:/_WordOfTheDay">
+<div created="20201230223903183" modified="20201231011340270" tags="" title="$:/_WordOfTheDay">
 <pre>\define thisListMacro()
 &lt;b&gt;&lt;$view field=title/&gt;&lt;/b&gt;: {{$:/_dictionary/wordOfTheDay##$(thisIndex)$}}&lt;br&gt;
 \end
@@ -2125,7 +2275,7 @@ Betydelse: &lt;$edit-text class='tc-edit-texteditor' tiddler='$:/temp/wordOfTheD
 &lt;/$reveal&gt;
 
 !! Sök
-Sök: &lt;$edit-text class='tc-edit-texteditor' tiddler='$:/temp/wordOfTheDay' placeholder=&quot;Skriv in söktermer&quot; field='search'/&gt;&lt;br&gt;
+Sök: &lt;$edit-text class='tc-edit-texteditor' tiddler='$:/temp/wordOfTheDay' placeholder=&quot;Skriv in sökterm&quot; field='search'/&gt;&lt;br&gt;
 &lt;$reveal type='nomatch' state='$:/temp/wordOfTheDay/editreveal' text='edit'&gt;
 
 &lt;/$reveal&gt;
@@ -12038,7 +12188,7 @@ Klicka på soptunnan för att radera en term
 <div status="complete" title="$:/Import">
 <pre>The following tiddlers were imported:
 
-# [[favicon-32x32.png]]</pre>
+# [[$:/_content/search/abbreviations]]</pre>
 </div>
 <div title="$:/isEncrypted">
 <pre>no</pre>
@@ -14535,8 +14685,8 @@ Klicka på soptunnan för att radera en term
 <div created="20201229053918838" modified="20201229053918838" title="$:/SiteTitle">
 <pre>Orchidelirium</pre>
 </div>
-<div created="20201231002845685" modified="20201231002845685" title="$:/state/showeditpreview">
-<pre>yes</pre>
+<div created="20201231002845685" modified="20201231005511588" title="$:/state/showeditpreview">
+<pre>no</pre>
 </div>
 <div created="20201228230501989" modified="20201228230517005" title="$:/state/tab--1418380610">
 <pre>$:/core/ui/ControlPanel/Plugins/Add/Plugins</pre>
@@ -14559,7 +14709,7 @@ Klicka på soptunnan för att radera en term
 <div title="$:/status/RequireReloadDueToPluginChange">
 <pre>no</pre>
 </div>
-<div created="20201230223633219" list="$:/_WordOfTheDay $:/_dictionary/photographers" modified="20201231002009276" title="$:/StoryList">
+<div created="20201230223633219" list="" modified="20201231011418666" title="$:/StoryList">
 <pre></pre>
 </div>
 <div author="JeremyRuston" core-version="&gt;=5.0.0" dependents="$:/themes/tiddlywiki/vanilla" description="Emphasises individual tiddlers" name="Snow White" plugin-priority="0" plugin-type="theme" title="$:/themes/tiddlywiki/snowwhite" type="application/json" version="5.1.23">
