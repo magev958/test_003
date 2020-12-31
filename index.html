@@ -155,6 +155,8 @@ Error message and password prompt
 
 <li>$:/_trivia/0002</li>
 
+<li>$:/_WordOfTheDay</li>
+
 <li>$:/config/AutoSave</li>
 
 <li>$:/config/DownloadSaver/AutoSave</li>
@@ -162,6 +164,8 @@ Error message and password prompt
 <li>$:/config/WikiParserRules/Inline/wikilink</li>
 
 <li>$:/core</li>
+
+<li>$:/favicon.ico</li>
 
 <li>$:/GitHub/Branch</li>
 
@@ -187,6 +191,8 @@ Error message and password prompt
 
 <li>$:/SiteTitle</li>
 
+<li>$:/state/showeditpreview</li>
+
 <li>$:/state/tab--1418380610</li>
 
 <li>$:/state/tab--1963855381</li>
@@ -208,8 +214,6 @@ Error message and password prompt
 <li>$:/themes/tiddlywiki/vanilla</li>
 
 <li>$:/themes/tiddlywiki/vanilla/options/sidebarlayout</li>
-
-<li>Ny Tiddler</li>
 
 </ul>
 </p>
@@ -2063,6 +2067,79 @@ Orchids grow slowly. They languish. They will produce a flower and a seedpod, ma
 <div tags="$:/tags/Trivia $:/tags/windowLess $:/tags/Factoid" title="$:/_trivia/0002">
 <pre>&lt;&lt;&lt;.tc-big-quote
 Orkidé kommer från det grekiska ordet ''orchis'', vilket betyder &quot;testikel&quot; och kommer från formen på de köttiga dubbla rötterna som de först beskrivna arterna hade.</pre>
+</div>
+<div created="20201230223903183" modified="20201231004622378" tags="" title="$:/_WordOfTheDay">
+<pre>\define thisListMacro()
+&lt;b&gt;&lt;$view field=title/&gt;&lt;/b&gt;: {{$:/_dictionary/wordOfTheDay##$(thisIndex)$}}&lt;br&gt;
+\end
+\define thisEditListMacro()
+&lt;b&gt;&lt;$view field=title/&gt;&lt;/b&gt;: {{$:/_dictionary/wordOfTheDay##$(thisIndex)$}} &lt;$button&gt;Remove&lt;$action-deletefield $tiddler='$:/_dictionary/wordOfTheDay' $field=$(thisIndex)$ $value=''/&gt;&lt;/$button&gt;&lt;br&gt;
+\end
+
+\define thisRegEx()
+$(thisSearch)$(?i)
+\end
+
+\define thisSearchMacro()
+&lt;ol&gt;
+&lt;$list filter=&quot;[[$:/_dictionary/wordOfTheDay]indexes[]regexp:title[(?i)$(thisSearch)$]]&quot;&gt;
+&lt;li&gt;&lt;span style=&quot;color:darkred;&quot;&gt;&lt;&lt;currentTiddler&gt;&gt;&lt;/span&gt;: &lt;$transclude tiddler=&quot;$:/_dictionary/wordOfTheDay&quot; index=&lt;&lt;currentTiddler&gt;&gt;/&gt;&lt;/li&gt;
+&lt;/$list&gt;
+&lt;/ol&gt;
+\end
+
+\define thisEditMacro()
+&lt;ol&gt;
+&lt;$list filter=&quot;[[$:/_dictionary/wordOfTheDay]indexes[]regexp:title[(?i)$(thisSearch)$]]&quot;&gt;
+&lt;$set name=thisItem value=&lt;&lt;currentTiddler&gt;&gt;&gt;
+&lt;li&gt;&lt;&lt;thisDeleteButton&gt;&gt; &lt;&lt;currentTiddler&gt;&gt; - &lt;$transclude tiddler=&quot;$:/_dictionary/wordOfTheDay&quot; index=&lt;&lt;currentTiddler&gt;&gt;/&gt;&lt;/li&gt;
+&lt;/$set&gt;
+&lt;/$list&gt;
+&lt;/ol&gt;
+\end
+
+\define thisDeleteButton()
+&lt;$button set='$:/_dictionary/wordOfTheDay##$(thisItem)$'&gt;{{$:/core/images/delete-button}}&lt;/$button&gt;
+\end
+
+\define addTerm()
+&lt;$action-setfield $tiddler='$:/_dictionary/wordOfTheDay' $index={{$:/temp/wordOfTheDay!!name}} $value={{$:/temp/wordOfTheDay!!meaning}}/&gt;
+&lt;$action-setfield $tiddler='$:/temp/wordOfTheDay' name='' meaning=''/&gt;
+\end
+
+!! WordOfTheDay
+Term: &lt;$edit-text class='tc-edit-texteditor' tiddler='$:/temp/wordOfTheDay' field='name'/&gt;&lt;br&gt;
+Betydelse: &lt;$edit-text class='tc-edit-texteditor' tiddler='$:/temp/wordOfTheDay' field='meaning'/&gt;&lt;br&gt;
+
+&lt;$reveal type='match' state='$:/temp/wordOfTheDay!!name' text=''&gt;
+&lt;$button&gt;Lägg till term&lt;/$button&gt;&lt;!-- This is a fake button, when term edit-text is empty --&gt;
+&lt;/$reveal&gt;
+&lt;$reveal type='nomatch' state='$:/temp/wordOfTheDay!!name' text=''&gt;
+&lt;$button actions=&lt;&lt;addTerm&gt;&gt; &gt;Lägg till term &lt;/$button&gt;
+&lt;/$reveal&gt;
+&lt;$reveal type='nomatch' state='$:/temp/wordOfTheDay/editreveal' text='edit'&gt;
+&lt;$button set='$:/temp/wordOfTheDay/editreveal' setTo='edit'&gt;Ändra lexicon&lt;/$button&gt;
+&lt;/$reveal&gt;
+&lt;$reveal type='match' state='$:/temp/wordOfTheDay/editreveal' text='edit'&gt;
+&lt;$button set='$:/temp/wordOfTheDay/editreveal' setTo='noedit'&gt;Klar&lt;/$button&gt;
+&lt;/$reveal&gt;
+
+!! Sök
+Sök: &lt;$edit-text class='tc-edit-texteditor' tiddler='$:/temp/wordOfTheDay' placeholder=&quot;Skriv in söktermer&quot; field='search'/&gt;&lt;br&gt;
+&lt;$reveal type='nomatch' state='$:/temp/wordOfTheDay/editreveal' text='edit'&gt;
+
+&lt;/$reveal&gt;
+&lt;$reveal type='match' state='$:/temp/wordOfTheDay/editreveal' text='edit'&gt;
+Klicka på soptunnan för att radera en term
+&lt;/$reveal&gt;
+&lt;$set name='thisSearch' value={{$:/temp/wordOfTheDay!!search}}&gt;
+&lt;$reveal type='nomatch' state='$:/temp/wordOfTheDay/editreveal' text='edit'&gt;
+&lt;&lt;thisSearchMacro&gt;&gt;
+&lt;/$reveal&gt;
+&lt;$reveal type='match' state='$:/temp/wordOfTheDay/editreveal' text='edit'&gt;
+&lt;&lt;thisEditMacro&gt;&gt;
+&lt;/$reveal&gt;
+&lt;/$set&gt;</pre>
 </div>
 <div created="20201228230443094" modified="20201228230443094" title="$:/config/AutoSave">
 <pre>no</pre>
@@ -11937,6 +12014,9 @@ Orkidé kommer från det grekiska ordet ''orchis'', vilket betyder &quot;testike
     }
 }</pre>
 </div>
+<div created="20201231002019334" modified="20201231002025662" title="$:/favicon.ico" type="image/png">
+<pre>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABGlBMVEUAAACsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKCsXKD///8z4v2wAAAAXXRSTlMAAAEHcHQJfPL0ggh97np1g3gFBHIN7wYot40CcW1/C4i6KyfE5OyRDAMKi8gmxdI1Yu1oMs7JKizDM2RqLzDN1WwtbpCKKQ4/3WVeReqXk45rWPFS64FcVllXhA80hpiQAAAAAWJLR0Rdnd8wAQAAAAd0SU1FB+IBFBElNdbnJNIAAAEjSURBVDjL3ZJpV4JAFIbnhdI2NEXQorJNBLQsijZTKy2zfd///+9oFuAg58j3mi9z5jzPO3PvnEvIP1yQJCRyeWw8hSSenpicmsZoPqNkssrsKIPmlVxeLSjxOwBNBtuyeq4IqAU9zSqFrAGCl+bmNRAYmYUiA/nFJZUey8srq+DBtfWKWbWYYYiEZANwamalzgxsbDa2trkRfdapuTu73t4+yMFh4whGc9hg/NhGy6u3iUc5YobPgVbnhJy2eSVRw+esvrNuGKJGTxhwzgUPmXXB2gqMgMMu9YWFy0HTYMYVM0IuXQ9ufMGqmqFRToX89q4fFBUx7h/cxzjnhvsEbujPPI+X1winhvb2zru1Pz5V3t/X98/w18ZGDZKROHp/bf0CeMMoxbEQ+W0AAAAldEVYdGRhdGU6Y3JlYXRlADIwMTgtMDEtMjBUMTc6Mzc6NTMrMDE6MDCaEoCaAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE4LTAxLTIwVDE3OjM3OjUzKzAxOjAw6084JgAAAFd6VFh0UmF3IHByb2ZpbGUgdHlwZSBpcHRjAAB4nOPyDAhxVigoyk/LzEnlUgADIwsuYwsTIxNLkxQDEyBEgDTDZAMjs1Qgy9jUyMTMxBzEB8uASKBKLgDqFxF08kI1lQAAAABJRU5ErkJggg==</pre>
+</div>
 <div created="20201230225439896" modified="20201230225733002" title="$:/GitHub/Branch">
 <pre>main</pre>
 </div>
@@ -11958,11 +12038,7 @@ Orkidé kommer från det grekiska ordet ''orchis'', vilket betyder &quot;testike
 <div status="complete" title="$:/Import">
 <pre>The following tiddlers were imported:
 
-# [[$:/_dictionary/photographers]]
-# [[$:/_dictionary/abbreviation]]
-# [[$:/_dictionary/auctor]]
-# [[$:/_dictionary/pronunciation]]
-# [[$:/_dictionary/wordOfTheDay]]</pre>
+# [[favicon-32x32.png]]</pre>
 </div>
 <div title="$:/isEncrypted">
 <pre>no</pre>
@@ -14459,6 +14535,9 @@ Orkidé kommer från det grekiska ordet ''orchis'', vilket betyder &quot;testike
 <div created="20201229053918838" modified="20201229053918838" title="$:/SiteTitle">
 <pre>Orchidelirium</pre>
 </div>
+<div created="20201231002845685" modified="20201231002845685" title="$:/state/showeditpreview">
+<pre>yes</pre>
+</div>
 <div created="20201228230501989" modified="20201228230517005" title="$:/state/tab--1418380610">
 <pre>$:/core/ui/ControlPanel/Plugins/Add/Plugins</pre>
 </div>
@@ -14480,7 +14559,7 @@ Orkidé kommer från det grekiska ordet ''orchis'', vilket betyder &quot;testike
 <div title="$:/status/RequireReloadDueToPluginChange">
 <pre>no</pre>
 </div>
-<div created="20201230223633219" list="$:/ControlPanel [[Ny Tiddler]] $:/Import $:/_dictionary/photographers" modified="20201230225452627" title="$:/StoryList">
+<div created="20201230223633219" list="$:/_WordOfTheDay $:/_dictionary/photographers" modified="20201231002009276" title="$:/StoryList">
 <pre></pre>
 </div>
 <div author="JeremyRuston" core-version="&gt;=5.0.0" dependents="$:/themes/tiddlywiki/vanilla" description="Emphasises individual tiddlers" name="Snow White" plugin-priority="0" plugin-type="theme" title="$:/themes/tiddlywiki/snowwhite" type="application/json" version="5.1.23">
@@ -14594,93 +14673,6 @@ Orkidé kommer från det grekiska ordet ''orchis'', vilket betyder &quot;testike
 </div>
 <div created="20201228230405204" modified="20201228230405204" title="$:/themes/tiddlywiki/vanilla/options/sidebarlayout">
 <pre>fluid-fixed</pre>
-</div>
-<div created="20201230223903183" modified="20201230224321230" tags="" title="Ny Tiddler">
-<pre>\define thisListMacro()
-&lt;b&gt;&lt;$view field=title/&gt;&lt;/b&gt;: {{$:/_dictionary/wordOfTheDay##$(thisIndex)$}}&lt;br&gt;
-\end
-\define thisEditListMacro()
-&lt;b&gt;&lt;$view field=title/&gt;&lt;/b&gt;: {{$:/_dictionary/wordOfTheDay##$(thisIndex)$}} &lt;$button&gt;Remove&lt;$action-deletefield $tiddler='$:/_dictionary/wordOfTheDay' $field=$(thisIndex)$ $value=''/&gt;&lt;/$button&gt;&lt;br&gt;
-\end
-
-\define thisRegEx()
-$(thisSearch)$(?i)
-\end
-
-\define thisSearchMacro()
-&lt;ol&gt;
-&lt;$list filter=&quot;[[$:/_dictionary/wordOfTheDay]indexes[]regexp:title[(?i)$(thisSearch)$]]&quot;&gt;
-&lt;li&gt;&lt;span style=&quot;color:darkred;&quot;&gt;&lt;&lt;currentTiddler&gt;&gt;&lt;/span&gt;: &lt;$transclude tiddler=&quot;$:/_dictionary/wordOfTheDay&quot; index=&lt;&lt;currentTiddler&gt;&gt;/&gt;&lt;/li&gt;
-&lt;/$list&gt;
-&lt;/ol&gt;
-\end
-
-\define thisEditMacro()
-&lt;ol&gt;
-&lt;$list filter=&quot;[[$:/_dictionary/wordOfTheDay]indexes[]regexp:title[(?i)$(thisSearch)$]]&quot;&gt;
-&lt;$set name=thisItem value=&lt;&lt;currentTiddler&gt;&gt;&gt;
-&lt;li&gt;&lt;&lt;thisDeleteButton&gt;&gt; &lt;&lt;currentTiddler&gt;&gt; - &lt;$transclude tiddler=&quot;$:/_dictionary/wordOfTheDay&quot; index=&lt;&lt;currentTiddler&gt;&gt;/&gt;&lt;/li&gt;
-&lt;/$set&gt;
-&lt;/$list&gt;
-&lt;/ol&gt;
-\end
-
-\define thisDeleteButton()
-&lt;$button set='$:/_dictionary/wordOfTheDay##$(thisItem)$'&gt;{{$:/core/images/delete-button}}&lt;/$button&gt;
-\end
-
-\define addTerm()
-&lt;$action-setfield $tiddler='$:/_dictionary/wordOfTheDay' $index={{$:/temp/wordOfTheDay!!name}} $value={{$:/temp/wordOfTheDay!!meaning}}/&gt;
-&lt;$action-setfield $tiddler='$:/temp/wordOfTheDay' name='' meaning=''/&gt;
-\end
-
-
-
-This is a full example of using DataTiddler (dictionary or JSON tiddler) for creating a refence book or Word Dictionary. This project was created and authored by {{!!responder}}.
-
-The project includes:
-
-# Macros for add/remove index/value pairs from DataTiddler
-# Macros for making search in DataTiddler
-# Macros for listing index/value pairs
-# A DataTiddler (here a JSON: [[$:/_dictionary/wordOfTheDay]]) to store pairs of index/value.
-# Reveal widget is used to prevent adding term with no meaning (empty edit box)
----
-
-!! WordOfTheDay
-
-Term: &lt;$edit-text class='tc-edit-texteditor' tiddler='$:/temp/wordOfTheDay' field='name'/&gt;&lt;br&gt;
-Meaning: &lt;$edit-text class='tc-edit-texteditor' tiddler='$:/temp/wordOfTheDay' field='meaning'/&gt;&lt;br&gt;
-
-&lt;$reveal type='match' state='$:/temp/wordOfTheDay!!name' text=''&gt;
-&lt;$button&gt;Add Term&lt;/$button&gt;&lt;!-- This is a fake button, when term edit-text is empty --&gt;
-&lt;/$reveal&gt;
-&lt;$reveal type='nomatch' state='$:/temp/wordOfTheDay!!name' text=''&gt;
-&lt;$button actions=&lt;&lt;addTerm&gt;&gt; &gt;Add Term &lt;/$button&gt;
-&lt;/$reveal&gt;
-&lt;$reveal type='nomatch' state='$:/temp/wordOfTheDay/editreveal' text='edit'&gt;
-&lt;$button set='$:/temp/wordOfTheDay/editreveal' setTo='edit'&gt;Edit Dictionary&lt;/$button&gt;
-&lt;/$reveal&gt;
-&lt;$reveal type='match' state='$:/temp/wordOfTheDay/editreveal' text='edit'&gt;
-&lt;$button set='$:/temp/wordOfTheDay/editreveal' setTo='noedit'&gt;Done Editing&lt;/$button&gt;
-&lt;/$reveal&gt;
-
-!! Search
-Search: &lt;$edit-text tiddler='$:/temp/wordOfTheDay' field='search'/&gt;&lt;br&gt;
-&lt;$reveal type='nomatch' state='$:/temp/wordOfTheDay/editreveal' text='edit'&gt;
-Type in the search box to find specific items on the list
-&lt;/$reveal&gt;
-&lt;$reveal type='match' state='$:/temp/wordOfTheDay/editreveal' text='edit'&gt;
-Click on the trashcan icon to remove an item
-&lt;/$reveal&gt;
-&lt;$set name='thisSearch' value={{$:/temp/wordOfTheDay!!search}}&gt;
-&lt;$reveal type='nomatch' state='$:/temp/wordOfTheDay/editreveal' text='edit'&gt;
-&lt;&lt;thisSearchMacro&gt;&gt;
-&lt;/$reveal&gt;
-&lt;$reveal type='match' state='$:/temp/wordOfTheDay/editreveal' text='edit'&gt;
-&lt;&lt;thisEditMacro&gt;&gt;
-&lt;/$reveal&gt;
-&lt;/$set&gt;</pre>
 </div>
 
 
