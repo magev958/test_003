@@ -141,6 +141,8 @@ Error message and password prompt
 
 <p>This <a class="tc-tiddlylink-external" href="https://tiddlywiki.com" rel="noopener noreferrer" target="_blank">TiddlyWiki</a> contains the following tiddlers:</p><p><ul>
 
+<li>$:/__development/refresh</li>
+
 <li>$:/_Abbreviation</li>
 
 <li>$:/_Auctor</li>
@@ -195,20 +197,6 @@ Error message and password prompt
 
 <li>$:/SiteTitle</li>
 
-<li>$:/state/showeditpreview</li>
-
-<li>$:/state/tab--1418380610</li>
-
-<li>$:/state/tab--1963855381</li>
-
-<li>$:/state/tab-1749438307</li>
-
-<li>$:/state/tab-2065006209</li>
-
-<li>$:/state/tab/moresidebar-1850697562</li>
-
-<li>$:/state/tab/sidebar--595412856</li>
-
 <li>$:/status/RequireReloadDueToPluginChange</li>
 
 <li>$:/StoryList</li>
@@ -233,6 +221,36 @@ Error message and password prompt
 <!--~~ Ordinary tiddlers ~~-->
 
 <div id="storeArea" style="display:none;">
+<div created="20190809102419703" creator="Magnus Evald" modified="20201231013406579" modifier="Magnus" revisions="rev 0.1  --  2019-08-10, basic version" status="[prefix[$:/state/]]" tags="" title="$:/__development/refresh" url="https://groups.google.com/d/msg/tiddlywiki/1Yz08ke7YHI/wqwgThYfDwAJ">
+<pre>\define deleteButton()
+&lt;$button&gt;
+{{$:/core/images/delete-button}}
+&lt;$action-deletetiddler $tiddler=&lt;&lt;currentTiddler&gt;&gt;/&gt;
+&lt;/$button&gt; - &lt;$link to=&lt;&lt;currentTiddler&gt;&gt; &gt;&lt;$text text=&lt;&lt;currentTiddler&gt;&gt; /&gt;&lt;/$link&gt;
+\end
+
+!! Beskrivning
+&lt;&lt;&lt;
+Raderar  tillfälliga tiddler. Tillfälliga tiddler är `$:/temp` och `$:/state` och det kan vara bra att radera från tid till tid.
+&lt;&lt;&lt;
+
+!! Användning
+&lt;&lt;&lt;
+Välj tiddler &lt;$select field='status' tooltip='Choose a new site title'&gt;
+&lt;option&gt;[prefix[$:/temp/]]&lt;/option&gt;
+&lt;option&gt;[prefix[$:/state/]]&lt;/option&gt;
+&lt;/$select&gt;
+
+&lt;$button&gt;
+&lt;$action-deletetiddler $filter=&quot;[subfilter{!!status}]&quot; /&gt;
+Radera alla: &lt;b&gt;&lt;$text text={{!!status}} /&gt;&lt;/b&gt; tiddler
+&lt;/$button&gt;
+
+&lt;$list filter=&quot;[subfilter{!!status}]&quot;&gt;
+&lt;&lt;deleteButton&gt;&gt;&lt;br&gt;
+&lt;/$list&gt;
+&lt;&lt;&lt;</pre>
+</div>
 <div created="20201231005507165" modified="20201231011329178" tags="" title="$:/_Abbreviation">
 <pre>\define thisListMacro()
 &lt;b&gt;&lt;$view field=title/&gt;&lt;/b&gt;: {{$:/_dictionary/abbreviation##$(thisIndex)$}}&lt;br&gt;
@@ -12188,7 +12206,7 @@ Klicka på soptunnan för att radera en term
 <div status="complete" title="$:/Import">
 <pre>The following tiddlers were imported:
 
-# [[$:/_content/search/abbreviations]]</pre>
+# [[$:/__development/refresh]]</pre>
 </div>
 <div title="$:/isEncrypted">
 <pre>no</pre>
@@ -14685,31 +14703,10 @@ Klicka på soptunnan för att radera en term
 <div created="20201229053918838" modified="20201229053918838" title="$:/SiteTitle">
 <pre>Orchidelirium</pre>
 </div>
-<div created="20201231002845685" modified="20201231005511588" title="$:/state/showeditpreview">
-<pre>no</pre>
-</div>
-<div created="20201228230501989" modified="20201228230517005" title="$:/state/tab--1418380610">
-<pre>$:/core/ui/ControlPanel/Plugins/Add/Plugins</pre>
-</div>
-<div created="20201228230403181" modified="20201228230403181" title="$:/state/tab--1963855381">
-<pre>$:/themes/tiddlywiki/vanilla/themetweaks</pre>
-</div>
-<div created="20201228230400628" modified="20201229054245130" title="$:/state/tab-1749438307">
-<pre>$:/core/ui/ControlPanel/Saving</pre>
-</div>
-<div created="20201228230449462" modified="20201230223635586" title="$:/state/tab-2065006209">
-<pre>$:/core/ui/ControlPanel/Saving/GitHub</pre>
-</div>
-<div created="20201230223647411" modified="20201230223647411" title="$:/state/tab/moresidebar-1850697562">
-<pre>$:/core/ui/MoreSideBar/System</pre>
-</div>
-<div created="20201230223646176" modified="20201230223646176" title="$:/state/tab/sidebar--595412856">
-<pre>$:/core/ui/SideBar/More</pre>
-</div>
 <div title="$:/status/RequireReloadDueToPluginChange">
 <pre>no</pre>
 </div>
-<div created="20201230223633219" list="" modified="20201231011418666" title="$:/StoryList">
+<div created="20201230223633219" list="$:/__development/refresh $:/_WordOfTheDay" modified="20201231013403723" title="$:/StoryList">
 <pre></pre>
 </div>
 <div author="JeremyRuston" core-version="&gt;=5.0.0" dependents="$:/themes/tiddlywiki/vanilla" description="Emphasises individual tiddlers" name="Snow White" plugin-priority="0" plugin-type="theme" title="$:/themes/tiddlywiki/snowwhite" type="application/json" version="5.1.23">
