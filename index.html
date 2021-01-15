@@ -199,9 +199,13 @@ Error message and password prompt
 
 <li>$:/state/advancedsearch/currentTab</li>
 
+<li>$:/state/showeditpreview</li>
+
 <li>$:/state/sidebar</li>
 
 <li>$:/state/tab--1498284803</li>
+
+<li>$:/state/tab--1963855381</li>
 
 <li>$:/state/tab-1749438307</li>
 
@@ -210,6 +214,8 @@ Error message and password prompt
 <li>$:/state/tab/moresidebar-1850697562</li>
 
 <li>$:/state/tab/sidebar--595412856</li>
+
+<li>$:/state/tabs/controlpanel/toolbars-1345989671</li>
 
 <li>$:/status/RequireReloadDueToPluginChange</li>
 
@@ -224,6 +230,16 @@ Error message and password prompt
 <li>Abbreviation</li>
 
 <li>Auctor</li>
+
+<li>Buttons/HideButton/Caption</li>
+
+<li>Buttons/HideButton/Hint</li>
+
+<li>images/hideButton-button</li>
+
+<li>testButtonTiddler</li>
+
+<li>Toolbars/HideToolbar</li>
 
 <li>viewTemplate</li>
 
@@ -14564,17 +14580,23 @@ $:/config/ViewToolbarButtons/Visibility/$(listItem)$
 <div created="20201229053918838" modified="20201229053918838" title="$:/SiteTitle">
 <pre>Orchidelirium</pre>
 </div>
-<div created="20210114011455788" modified="20210114011455788" title="$:/state/advancedsearch/currentTab">
+<div created="20210114011455788" modified="20210115010715633" title="$:/state/advancedsearch/currentTab">
 <pre>$:/core/ui/AdvancedSearch/Shadows</pre>
 </div>
-<div created="20210114011542452" modified="20210114055001250" title="$:/state/sidebar">
+<div created="20210115010706432" modified="20210115010706432" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
-<div created="20210114011455788" modified="20210114011455788" title="$:/state/tab--1498284803">
+<div created="20210114011542452" modified="20210115010500630" title="$:/state/sidebar">
+<pre>yes</pre>
+</div>
+<div created="20210114011455788" modified="20210115010715634" title="$:/state/tab--1498284803">
 <pre>$:/core/ui/AdvancedSearch/Shadows</pre>
 </div>
-<div created="20210106142736140" modified="20210106142736140" title="$:/state/tab-1749438307">
-<pre>$:/core/ui/ControlPanel/Saving</pre>
+<div created="20210115010506310" modified="20210115010508054" title="$:/state/tab--1963855381">
+<pre>$:/core/ui/ControlPanel/Toolbars</pre>
+</div>
+<div created="20210106142736140" modified="20210115010503982" title="$:/state/tab-1749438307">
+<pre>$:/core/ui/ControlPanel/Appearance</pre>
 </div>
 <div created="20210106142737796" modified="20210106142737796" title="$:/state/tab-2065006209">
 <pre>$:/core/ui/ControlPanel/Saving/GitHub</pre>
@@ -14585,10 +14607,13 @@ $:/config/ViewToolbarButtons/Visibility/$(listItem)$
 <div created="20210106142630589" modified="20210114054903210" title="$:/state/tab/sidebar--595412856">
 <pre>$:/core/ui/SideBar/Recent</pre>
 </div>
+<div created="20210115010915459" modified="20210115040840749" title="$:/state/tabs/controlpanel/toolbars-1345989671">
+<pre>Toolbars/HideToolbar</pre>
+</div>
 <div title="$:/status/RequireReloadDueToPluginChange">
 <pre>no</pre>
 </div>
-<div created="20210114011453293" list="Abbreviation Auctor WordOfTheDay $:/core/ui/ViewTemplate/subtitle $:/core/ui/ViewTemplate/title GettingStarted" modified="20210114054938540" title="$:/StoryList">
+<div created="20210115005642214" list="Buttons/HideButton/Caption $:/AdvancedSearch images/hideButton-button testButtonTiddler $:/core/ui/Buttons/clone Toolbars/HideToolbar $:/ControlPanel" modified="20210115040605735" title="$:/StoryList">
 <pre></pre>
 </div>
 <div author="JeremyRuston" core-version="&gt;=5.0.0" dependents="$:/themes/tiddlywiki/vanilla" description="Emphasises individual tiddlers" name="Snow White" plugin-priority="0" plugin-type="theme" title="$:/themes/tiddlywiki/snowwhite" type="application/json" version="5.1.23">
@@ -14847,6 +14872,46 @@ Klicka på soptunnan för att radera en term
 &lt;$reveal type='match' state='$:/temp/auctor/editreveal' text='edit'&gt;
 &lt;&lt;thisEditMacro&gt;&gt;
 &lt;/$reveal&gt;
+&lt;/$set&gt;</pre>
+</div>
+<div created="20210115040607672" modified="20210115040635290" tags="" title="Buttons/HideButton/Caption">
+<pre>Kopiera</pre>
+</div>
+<div created="20210115040523330" modified="20210115040544443" tags="" title="Buttons/HideButton/Hint">
+<pre>Kopiera denna tiddler</pre>
+</div>
+<div created="20210115040358143" modified="20210115040451836" tags="$:/tags/Image" title="images/hideButton-button">
+<pre>&lt;svg width=&quot;22pt&quot; height=&quot;22pt&quot; class=&quot;tc-clone-button tc-image-button&quot; viewBox=&quot;0 0 128 128&quot;&gt;&lt;g fill-rule=&quot;evenodd&quot;&gt;&lt;path d=&quot;M32.265 96v24.002A7.996 7.996 0 0040.263 128h79.74a7.996 7.996 0 007.997-7.998v-79.74a7.996 7.996 0 00-7.998-7.997H96V48h12.859a2.99 2.99 0 012.994 2.994v57.865a2.99 2.99 0 01-2.994 2.994H50.994A2.99 2.99 0 0148 108.859V96H32.265z&quot;/&gt;&lt;path d=&quot;M40 56h-7.993C27.588 56 24 52.418 24 48c0-4.41 3.585-8 8.007-8H40v-7.993C40 27.588 43.582 24 48 24c4.41 0 8 3.585 8 8.007V40h7.993C68.412 40 72 43.582 72 48c0 4.41-3.585 8-8.007 8H56v7.993C56 68.412 52.418 72 48 72c-4.41 0-8-3.585-8-8.007V56zM8 0C3.58 0 0 3.588 0 8v80c0 4.419 3.588 8 8 8h80c4.419 0 8-3.588 8-8V8c0-4.419-3.588-8-8-8H8zM19 16A2.997 2.997 0 0016 19.001v57.998A2.997 2.997 0 0019.001 80h57.998A2.997 2.997 0 0080 76.999V19.001A2.997 2.997 0 0076.999 16H19.001z&quot;/&gt;&lt;/g&gt;&lt;/svg&gt;</pre>
+</div>
+<div caption="{{images/hideButton-button}} {{Buttons/HideButton/Caption}}" created="20210115014938447" description="{{Buttons/HideButton/Hint}}" modified="20210115040808775" tags="$:/tags/HideToolbar" title="testButtonTiddler">
+<pre>\whitespace trim
+&lt;$button message=&quot;tm-new-tiddler&quot; param=&lt;&lt;currentTiddler&gt;&gt; tooltip={{Buttons/HideButton/Hint}} aria-label={{Buttons/HideButton/Caption}} class=&lt;&lt;tv-config-toolbar-class&gt;&gt;&gt;
+&lt;$list filter=&quot;[&lt;tv-config-toolbar-icons&gt;match[yes]]&quot;&gt;
+{{$:/core/images/clone-button}}
+&lt;/$list&gt;
+&lt;$list filter=&quot;[&lt;tv-config-toolbar-text&gt;match[yes]]&quot;&gt;
+&lt;span class=&quot;tc-btn-text&quot;&gt;
+&lt;$text text=&quot; &quot;/&gt;
+&lt;$text text={{Buttons/HideButton/Caption}}/&gt;
+&lt;/span&gt;
+&lt;/$list&gt;
+&lt;/$button&gt;</pre>
+</div>
+<div caption="Dolda verktygsfält" created="20210115010813381" modified="20210115015140031" tags="$:/tags/ControlPanel/Toolbars" title="Toolbars/HideToolbar">
+<pre>\define lingo-base() $:/language/TiddlerInfo/
+
+\define config-base() $:/config/ViewToolbarButtons/Visibility/
+
+{{$:/language/ControlPanel/Toolbars/ViewToolbar/Hint}}
+
+&lt;$set name=&quot;tv-config-toolbar-icons&quot; value=&quot;yes&quot;&gt;
+
+&lt;$set name=&quot;tv-config-toolbar-text&quot; value=&quot;yes&quot;&gt;
+
+&lt;$macrocall $name=&quot;list-tagged-draggable&quot; tag=&quot;$:/tags/HideToolbar&quot; itemTemplate=&quot;$:/core/ui/ControlPanel/Toolbars/ItemTemplate&quot;/&gt;
+
+&lt;/$set&gt;
+
 &lt;/$set&gt;</pre>
 </div>
 <div created="20210108231714157" modified="20210109053345423" tags="$:/tags/ViewTemplate" title="viewTemplate">
